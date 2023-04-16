@@ -1,1 +1,74 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$rental-hive-szakdolgozat-primary: mat.define-palette(mat.$indigo-palette);
+$rental-hive-szakdolgozat-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$rental-hive-szakdolgozat-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$rental-hive-szakdolgozat-theme: mat.define-light-theme((
+  color: (
+    primary: $rental-hive-szakdolgozat-primary,
+    accent: $rental-hive-szakdolgozat-accent,
+    warn: $rental-hive-szakdolgozat-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($rental-hive-szakdolgozat-theme);
+
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+$bg-color : #46344e;
+html, body { height: 100%; }
+body {
+   margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+   position: relative;
+   background: $bg-color;
+    background:
+      radial-gradient(blur(200px) circle at 40% 0, #faed26, rgba(250,237,38,0) 70%);
+}
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0; /* changed from right to left */
+  width: 20%;
+  height: 20%;
+  border-radius: 50%;
+  background: #faed26;
+  filter: blur(200px);
+  z-index: -1;
+}
+body::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20%;
+  height: 20%;
+  border-radius: 50%;
+  background: #9b786f;
+  filter: blur(200px);
+  z-index: -1;
+}
+
