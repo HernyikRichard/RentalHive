@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "rentalhive-szakdolgozat-2023": {
+      "hosting": {
+        "rental-hive-szakdolgozat": [
+          "rentalhive-szakdolgozat-2023"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "rentalhive-szakdolgozat-2023"
+  }
+}
