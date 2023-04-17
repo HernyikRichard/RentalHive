@@ -1,33 +1,8 @@
-.menu {
-  position: fixed;
-  display: inline-block;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  background-color: #9b786f;
+a {
+  text-decoration: none;
+  color: white;
+}
 
-  ul {
-    list-style: none;
-    padding: 0;
-
-    li {
-      a {
-        color: white;
-        display: block;
-        padding: 10px;
-        text-decoration: none;
-        border-bottom: 1px solid #46344e;
-
-        i {
-          margin-right: 10px;
-        }
-        &:hover {
-          background-color: #7c5d4a;
-        }
-        &.active {
-          background-color: #46344e;
-        }
-      }
-    }
-  }
+a:hover, a:active {
+  color: lightgray;
 }

@@ -7,4 +7,5 @@ export const environment = {
     authDomain: 'rentalhive-szakdolgozat-2023.firebaseapp.com',
     messagingSenderId: '681770404934',
     measurementId: 'G-PDF4PBL55K',
-  },};
+  },
+};
