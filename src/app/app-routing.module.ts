@@ -1,34 +1,41 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './shared/services/auth.guard';
 
 const routes: Routes = [
-
   { 
     path: 'home', 
-    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile', 
-    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) 
+    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule), 
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
+
+  },
+  {
+    path: 'registration',
+    loadChildren: () => import('./pages/regist/regist.module').then(m => m.RegistModule),
+
   },
   {
     path: 'not-found', 
-    loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) 
+    loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule),
   },
   {
     path: '', 
-    redirectTo: '/home',
+    redirectTo: 'login',
     pathMatch: 'full', 
   },
-
-  { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
-
-  { path: 'registration', loadChildren: () => import('./pages/registration/registration.module').then(m => m.RegistrationModule) },
   {
     path: '**',
     redirectTo: '/not-found',
   }
-
 ];
 
 @NgModule({

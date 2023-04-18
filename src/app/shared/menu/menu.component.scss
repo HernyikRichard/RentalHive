@@ -3,6 +3,24 @@ a {
   color: white;
 }
 
-a:hover, a:active {
-  color: lightgray;
+$sidebar-bg-color: #9b786f;
+$sidebar-hover-bg-color: #14081d;
+$sidebar-text-color: #fff;
+$sidebar-width: 60px;
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: $sidebar-width;
+  list-style-type: none;
+  background: $sidebar-bg-color;
+  color: #fff;
+
+  .menu-icon{
+    color: #46344e;
+  }
 }

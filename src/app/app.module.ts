@@ -21,6 +21,8 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { AuthGuard } from './shared/services/auth.guard';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { MatDividerModule } from '@angular/material/divider';
   ],
   imports: [
     BrowserModule,
+    MatMenuModule,
     MatListModule,
     FlexLayoutModule,
     AppRoutingModule,
@@ -45,7 +48,7 @@ import { MatDividerModule } from '@angular/material/divider';
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

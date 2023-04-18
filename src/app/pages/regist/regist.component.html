@@ -1,0 +1,55 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <input matInput formControlName="email" placeholder="Email" type="email">
+    <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">
+      Email megadása kötelező
+    </mat-error>
+    <mat-error *ngIf="registrationForm.get('email')?.hasError('email')">
+      Nem megfelelő email formátum
+    </mat-error>
+    <mat-label>Email</mat-label>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="lastName" placeholder="Vezetéknév">
+    <mat-error *ngIf="registrationForm.get('lastName')?.hasError('required')">
+      Vezetéknév megadása kötelező
+    </mat-error>
+    <mat-error *ngIf="registrationForm.get('lastName')?.hasError('pattern')">
+      Vezetéknév nem megfelelő
+    </mat-error>
+    <mat-label>Vezetéknév</mat-label>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="firstName" placeholder="Keresztnév">
+    <mat-error *ngIf="registrationForm.get('firstName')?.hasError('required')">
+      Keresztnév megadása kötelező
+    </mat-error>
+    <mat-error *ngIf="registrationForm.get('firstName')?.hasError('pattern')">
+      Keresztnév megfelelő
+    </mat-error>
+    <mat-label>Keresztnév</mat-label>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="password" placeholder="Jelszó" type="password">
+    <mat-label>Jelszó</mat-label>
+    <mat-error *ngIf="registrationForm.get('password')?.invalid && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched)">
+      <span *ngIf="registrationForm.get('password')?.hasError('required')">A jelszó mező kitöltése kötelező.</span>
+      <span *ngIf="registrationForm.get('password')?.hasError('minlength')">A jelszó mező legalább 6 karakter hosszúnak kell lennie.</span>
+      <span *ngIf="registrationForm.get('password')?.hasError('pattern')">A jelszónak tartalmaznia kell legalább egy nagybetűt, egy kisbetűt és egy számot.</span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="confirmPassword" placeholder="Jelszó újra" type="password">
+    <mat-label>Jelszó újra</mat-label>
+    <mat-error *ngIf="registrationForm.get('confirmPassword')?.invalid && (registrationForm.get('confirmPassword')?.dirty || registrationForm.get('confirmPassword')?.touched)">
+      <span *ngIf="registrationForm.get('confirmPassword')?.hasError('required')">A jelszó újra mező kitöltése kötelező.</span>
+      <span *ngIf="registrationForm.get('confirmPassword')?.hasError('passwordMismatch')">A jelszavak nem egyeznek meg.</span>
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+</form>

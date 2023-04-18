@@ -1,0 +1,40 @@
+/* Alapértelmezett stílusok */
+mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  mat-label {
+    font-size: 14px;
+  }
+  
+  /* Hibajelzések */
+  mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: #f44336;
+  }
+  
+  .mat-form-field-invalid .mat-form-field-underline {
+    background-color: #f44336;
+  }
+  
+  .mat-form-field-invalid .mat-form-field-ripple {
+    background-color: #f44336;
+  }
+  
+  /* Sikeres validáció */
+  mat-form-field.mat-form-field-success .mat-form-field-label {
+    color: #4caf50;
+  }
+  
+  .mat-form-field-success .mat-form-field-underline {
+    background-color: #4caf50;
+  }
+  
+  .mat-form-field-success .mat-form-field-ripple {
+    background-color: #4caf50;
+  }
+  
+  /* Submit gomb */
+  button[type="submit"] {
+    margin-top: 16px;
+  }

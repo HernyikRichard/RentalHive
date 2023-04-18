@@ -29,12 +29,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   async login() {
     this.authService.login(this.email.value!, this.password.value!).then(cred => {
-      console.log(cred);
       this.router.navigateByUrl('/home');
       this.loading = false;
-
     }).catch(error => {
-      console.error(error);
       this.loading = false;
     });
   }

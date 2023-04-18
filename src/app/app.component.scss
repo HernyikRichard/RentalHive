@@ -1,18 +1,12 @@
-a {
-    text-decoration: none;
-    color: white;
+.wrapper {
+  display: flex;
+  flex-wrap: nowrap; /* hogy ne legyen sortörés */
 }
 
-a:hover, a:active {
-    color: lightgray;
+.side-menu {
+  flex: 0 0 60px; /* állandó szélesség 200px, ne nyújtható */
 }
 
-.navigation-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-mat-sidenav {
-    width: 250px;
+.content {
+  flex: 1; /* kitölti a rendelkezésre álló helyet */
 }
