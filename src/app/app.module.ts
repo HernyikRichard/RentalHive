@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { MenuComponent } from './shared/menu/menu.component';
+
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,44 +11,64 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule } from '@angular/material/list';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
+import { HeaderComponent } from './shared/header/header.component';
+import { AuthService } from './shared/services/auth.service';
+
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
-import { AngularFireModule } from '@angular/fire/compat';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatMenuModule } from '@angular/material/menu';
-import { AuthGuard } from './shared/services/auth.guard';
+import { AuthGuard } from '../app/shared/services/auth.guard';
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { environment } from '../environments/environment';
+
+import { AppComponent } from './app.component';
+import { MenuComponent } from './shared/menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent
+    MenuComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
-    MatMenuModule,
-    MatListModule,
-    FlexLayoutModule,
     AppRoutingModule,
     NgbModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSidenavModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+
+    MatSidenavModule,
+    MatMenuModule,
+    MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatDividerModule,
+    FlexLayoutModule,
+    MatListModule,
+
     AngularFireModule.initializeApp(environment.firebase),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage()),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
   ],
-  providers: [AuthGuard],
+  providers: [
+    Injectable,
+    AuthService,
+    AuthGuard,
+    { provide: getAuth, useFactory: provideAuth },
+    { provide: getFirestore, useFactory: provideFirestore },
+    { provide: getStorage, useFactory: provideStorage }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

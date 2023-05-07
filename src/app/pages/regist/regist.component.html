@@ -1,4 +1,4 @@
-<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="col-md-6 bg-white p-4 m-3">
   <mat-form-field>
     <input matInput formControlName="email" placeholder="Email" type="email">
     <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">

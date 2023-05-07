@@ -1,11 +1,17 @@
-<mat-nav-list class="side-menu">
-  <a mat-list-item routerLink="/home" routerLinkActive="active">
-    <mat-icon>home</mat-icon>
+<mat-nav-list>
+  <div class="logo py-1">
+    <img src="./assets/logo.png" alt="Company Logo" />
+  </div>
+  <mat-divider></mat-divider>
+  <h2 matSubheader class="mt-2 text-center costum-list-item">Rental Hive</h2>
+
+  <a mat-list-item routerLinkActive="active current-page" routerLink="/home">
+    <mat-icon>home</mat-icon> <span class="costum-list-item">Home</span>
   </a>
-  <a mat-list-item routerLink="/profile" routerLinkActive="active">
-    <mat-icon>account_circle</mat-icon>
+  <a mat-list-item routerLinkActive="active current-page" routerLink="/profile">
+    <mat-icon>account_circle</mat-icon> <span class="costum-list-item">Profil</span>
   </a>
-  <a mat-list-item routerLink="/login" (click)="logout()">
-    <mat-icon>logout</mat-icon>
+  <a mat-list-item (click)="this.fAuth.signOut()">
+    <mat-icon>logout</mat-icon> <span class="costum-list-item">Kijelentkezés</span>
   </a>
 </mat-nav-list>

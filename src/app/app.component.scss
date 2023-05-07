@@ -1,12 +1,17 @@
-.wrapper {
+:host {
   display: flex;
-  flex-wrap: nowrap; /* hogy ne legyen sortörés */
+  flex-direction: column;
+  height: 100%;
 }
 
-.side-menu {
-  flex: 0 0 60px; /* állandó szélesség 200px, ne nyújtható */
+mat-drawer {
+  width: 200px;
+  background-color: #9b786f;
 }
 
-.content {
-  flex: 1; /* kitölti a rendelkezésre álló helyet */
+mat-drawer-container {
+  height: 100%;
+}
+mat-drawer-content{
+  background-color: #9b786f;
 }

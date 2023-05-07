@@ -3,25 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './shared/services/auth.guard';
 
 const routes: Routes = [
-  { 
-    path: 'home', 
-    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
-    canActivate: [AuthGuard]
-  },
   {
-    path: 'profile', 
-    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule), 
-    canActivate: [AuthGuard]
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
+
   },
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
-
+    
   },
   {
     path: 'registration',
     loadChildren: () => import('./pages/regist/regist.module').then(m => m.RegistModule),
-
+    
   },
   {
     path: 'not-found', 
@@ -29,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: '', 
-    redirectTo: 'login',
+    redirectTo: '/login',
     pathMatch: 'full', 
   },
   {

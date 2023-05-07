@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { User } from '../../shared/interfaces/User';
 import { AuthService } from 'src/app/shared/services/auth.service';
-
-function matchPasswords(g: FormGroup) {
-  return g.get('password')!.value === g.get('confirmPassword')!.value ? null : { 'mismatch': true };
-}
 
 @Component({
   selector: 'app-regist',
@@ -16,7 +13,10 @@ export class RegistComponent implements OnInit {
 
   registrationForm!: FormGroup;
 
-  constructor(private authService: AuthService, private formbuilder: FormBuilder) { }
+  constructor(
+    private authService: AuthService, 
+    private formbuilder: FormBuilder
+    ) { }
 
   ngOnInit() {
     this.registrationForm = this.formbuilder.group(
@@ -39,6 +39,9 @@ export class RegistComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.regist(this.registrationForm.get('email')?.value, this.registrationForm.get('email')?.value);
+    this.authService.register(
+      this.registrationForm.get('email')?.value, 
+      this.registrationForm.get('password')?.value
+    );
   }
 }

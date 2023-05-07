@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
 import { AuthService } from './shared/services/auth.service';
+import { User } from './shared/interfaces/User';
 
 @Component({
   selector: 'app-root',
@@ -11,23 +9,20 @@ import { AuthService } from './shared/services/auth.service';
 })
 
 export class AppComponent implements OnInit {
-  page = '';
-  routes: Array<string> = [];
-  loggedInUser?: firebase.default.User | null;
+  sideBarOpen = false;
+  constructor(public authService: AuthService) {
+    this.authService.user$.subscribe((user) => {
+      console.log('User data:', user);
+    });
+  }
 
-  constructor(private router: Router, private authService: AuthService) { }
+
+
+  sideBarToggler() {
+    this.sideBarOpen = !this.sideBarOpen;
+  }
 
   ngOnInit() {
-    this
-      .authService
-      .isLoggedIn
-      .subscribe(
-        user => {
-          this.loggedInUser = user;
-          localStorage.setItem('user', JSON.stringify(this.loggedInUser));
-        }, error => {
-          localStorage.setItem('user', JSON.stringify('null'));
-        }
-      );
   }
+
 }

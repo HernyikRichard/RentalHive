@@ -1,19 +1,27 @@
-<span class="loading-indicator" *ngIf="loading">
-    <mat-spinner></mat-spinner>
-</span>
+<div class="box">
+    <div class="bg-white col-md-6 p-4 m-3">
+        <h1 class="align-middle">Bejelentkezés</h1>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <mat-form-field>
+                <mat-label for="email">Email: </mat-label>
+                <input matInput type="text" formControlName="email" required="required" />
+                <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+                    Email megadása kötelező
+                </mat-error>
+            </mat-form-field>
 
-<div class="main_component">
-    <h1>Welcome to my homepage!</h1>
-    <mat-form-field>
-        <mat-label for="email">Email: </mat-label><input matInput type="text" [formControl]="email" required="required"/>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label for="password">Password: </mat-label><input matInput type="password" [formControl]="password" required="required"/>
-    </mat-form-field>
-    <span>
-        <span><button mat-raised-button color="primary" (click)="login()">Login</button></span>
-        <span><button mat-raised-button color="primary" [routerLink]="'/registration'">Regisztráció</button></span>
-    </span>
-    <!-- AsyncPipe -->
-    <!-- <p>{{loadingObservation | async}}</p> -->
+            <mat-form-field class="row">
+                <mat-label for="password">Password: </mat-label>
+                <input matInput type="password" formControlName="password" required="required" />
+                <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                    Jelszó megadása kötelező
+                </mat-error>
+            </mat-form-field>
+            <span>
+                <span><button mat-raised-button class="costum-button" type="submit">Login</button></span>
+                <span><a mat-raised-button class="costum-button" [routerLink]="'/registration'">Regisztráció</a></span>
+            </span>
+
+        </form>
+    </div>
 </div>

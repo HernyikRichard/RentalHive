@@ -1,26 +1,34 @@
-a {
-  text-decoration: none;
-  color: white;
+:host {
+  .mat-icon {
+    vertical-align: middle;
+    margin-right: 1rem;
+    color: #faed26;
+  }
 }
 
-$sidebar-bg-color: #9b786f;
-$sidebar-hover-bg-color: #14081d;
-$sidebar-text-color: #fff;
-$sidebar-width: 60px;
+.costum-list-item{
+  font-weight: 600; // Félkövér
+  color: white; // Fehér szín
+}
 
-.side-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: $sidebar-width;
-  list-style-type: none;
-  background: $sidebar-bg-color;
-  color: #fff;
+.logo {
+  text-align: center;
+  img {
+    width: 100px;
+    pointer-events: none;
+  }
+}
 
-  .menu-icon{
-    color: #46344e;
+.mat-divider {
+  border-top-width: 1px;
+  border-color: white;
+}
+
+a{
+  &.active {
+    background-color: #836861;
+  }
+  &:hover{
+    background-color: #836861;
   }
 }

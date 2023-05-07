@@ -1,8 +1,16 @@
-<div class="wrapper">
-  <div class="side-menu" *ngIf="loggedInUser" >
+
+<div *ngIf="(authService.user$ | async) as user; else notLoggedIn">
+  <mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen">
       <app-menu></app-menu>
-  </div>
-  <div class="content">
-    <router-outlet></router-outlet>
-  </div>
+    </mat-drawer>
+    <mat-drawer-content>
+      <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
 </div>
+
+<ng-template #notLoggedIn>
+  <router-outlet></router-outlet>
+</ng-template>

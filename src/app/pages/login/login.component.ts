@@ -1,43 +1,50 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { Router } from '@angular/router';
 
-@Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
-}
+@Component(
+  {
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
+  }
 )
 
-export class LoginComponent implements OnInit, OnDestroy {
-  
-  email = new FormControl('');
-  password = new FormControl('');
-  
-  loadingSubscription?: Subscription;
-  loadingObservation?: Observable<boolean>;
+export class LoginComponent implements OnInit {
 
-  loading: boolean = false;
+   loginForm!: FormGroup;
+   submitted = false;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(
+    public aServ: AuthService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) { }
 
-  ngOnInit(): void {
-
-  }
-
-  async login() {
-    this.authService.login(this.email.value!, this.password.value!).then(cred => {
-      this.router.navigateByUrl('/home');
-      this.loading = false;
-    }).catch(error => {
-      this.loading = false;
+  ngOnInit(): void { 
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     });
   }
 
-  ngOnDestroy() {
-    this.loadingSubscription?.unsubscribe();
+
+  async login(){
+    this.submitted = true;
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    try {
+      await this.aServ.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value);
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
+    
   }
+  
+
 }
 
