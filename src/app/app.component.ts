@@ -1,28 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from './shared/services/auth.service';
-import { User } from './shared/interfaces/User';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
+export class AppComponent {
+  public sideBarOpen: boolean = true;
+  public isNotFoundPage: boolean = false;
 
-export class AppComponent implements OnInit {
-  sideBarOpen = false;
-  constructor(public authService: AuthService) {
-    this.authService.user$.subscribe((user) => {
-      console.log('User data:', user);
+  constructor(public authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isNotFoundPage = this.activatedRoute.snapshot.firstChild?.routeConfig?.path === '**';
+      }
     });
   }
-
-
 
   sideBarToggler() {
     this.sideBarOpen = !this.sideBarOpen;
   }
 
-  ngOnInit() {
+  onRouteActivated(event: any) {
+    this.isNotFoundPage = event instanceof NotFoundComponent;
   }
-
 }
