@@ -6,7 +6,8 @@
         <div class="row mr-2 ml-auto" *ngIf="(authService.user$ | async) as user">
             <ul class="row m-0 align-items-center">
                 <li>
-                    <button mat-button class="user mt-2 d-flex align-items-center">
+                    <button mat-button class="user mt-2 d-flex align-items-center" routerLink="/profile">
+                        
                         <img src="./assets/logo.png" alt="" class="user-image mr-1 p-2" />
                         {{user.email}}
                     </button>

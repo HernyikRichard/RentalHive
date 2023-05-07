@@ -8,7 +8,11 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class LoginGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   canActivate(): Observable<boolean> {
     return this.authService.user$.pipe(
