@@ -33,12 +33,14 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './shared/menu/menu.component';
+import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoadingScreenComponent
   ],
   imports: [
     BrowserModule,

@@ -1,19 +1,26 @@
 <ng-container *ngIf="(authService.user$ | async) as user; else notLoggedIn">
-  <mat-drawer-container *ngIf="!isNotFoundPage; else notFoundPage">
-    <mat-drawer mode="side" [opened]="sideBarOpen">
-      <app-menu></app-menu>
-    </mat-drawer>
-    <mat-drawer-content>
-      <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
-      <router-outlet (activate)="onRouteActivated($event)"></router-outlet>
-    </mat-drawer-content>
-  </mat-drawer-container>
+  <ng-container *ngIf="!isNotFoundPage; else notFoundPage">
+    <mat-drawer-container>
+      <mat-drawer mode="side" [opened]="sideBarOpen">
+        <app-menu></app-menu>
+      </mat-drawer>
+      <mat-drawer-content>
+        <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
+        <router-outlet (activate)="onRouteActivated($event)"></router-outlet>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </ng-container>
+  <ng-template #notFoundPage>
+    <router-outlet (activate)="onRouteActivated($event)"></router-outlet>
+  </ng-template>
 </ng-container>
 
 <ng-template #notLoggedIn>
   <router-outlet (activate)="onRouteActivated($event)"></router-outlet>
 </ng-template>
 
-<ng-template #notFoundPage>
-  <router-outlet></router-outlet>
-</ng-template>
+<app-loading-screen
+  *ngIf="isLoading || loadingState === 'visible'"
+  [@loadingScreen]="loadingState"
+  (@loadingScreen.done)="loadingAnimationDone($event)"
+></app-loading-screen>

@@ -1,30 +1,67 @@
 import { Component } from '@angular/core';
+import { Router, NavigationEnd, ActivatedRoute, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
 import { AuthService } from './shared/services/auth.service';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { switchMap } from 'rxjs/operators';
+import { of, timer } from 'rxjs';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { AnimationEvent } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  animations: [
+    trigger('loadingScreen', [
+      state('visible', style({ opacity: 1 })),
+      state('invisible', style({ opacity: 0 })),
+      transition('visible => hidden', animate('2s')),
+    ]),
+  ],
 })
+
 export class AppComponent {
+
+  private minimumLoadingTime: number = 500;
   public sideBarOpen: boolean = true;
   public isNotFoundPage: boolean = false;
+  public isLoading: boolean = false;
+  public loadingState: string = 'invisible';
 
-  constructor(public authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.isNotFoundPage = this.activatedRoute.snapshot.firstChild?.routeConfig?.path === '**';
-      }
-    });
+
+constructor(public authService: AuthService, private router: Router) {
+  this.router.events.subscribe((event) => {
+    if (event instanceof NavigationStart) {
+      this.isLoading = true;
+    }
+    if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
+      timer(this.minimumLoadingTime).pipe(
+        switchMap(() => {
+          this.isLoading = false;
+          return of(null);
+        })
+      ).subscribe();
+    }
+    if (event instanceof NavigationEnd) {
+      this.isNotFoundPage = this.router.url.includes('not-found');
+    }
+  });
+}
+
+  onRouteActivated(activatedComponent: any): void {
+    this.loadingState = 'visible';
+    setTimeout(() => {
+      this.loadingState = 'invisible';
+    }, 600);
   }
 
   sideBarToggler() {
     this.sideBarOpen = !this.sideBarOpen;
   }
 
-  onRouteActivated(event: any) {
-    this.isNotFoundPage = event instanceof NotFoundComponent;
+  loadingAnimationDone(event: AnimationEvent) {
+    if (event.toState === 'invisible') {
+      this.isLoading = false;
+    }
   }
+
 }
