@@ -1,27 +1,35 @@
-<div class="box">
-    <div class="bg-white col-md-6 p-4 m-3">
-        <h1 class="align-middle">Bejelentkezés</h1>
-        <form [formGroup]="loginForm" (ngSubmit)="login()">
-            <mat-form-field>
-                <mat-label for="email">Email: </mat-label>
+<div class="login-container">
+    <div class="box d-flex align-items-center justify-content-center">
+      <div class="bg-white col-md-6 p-4">
+        <h1 class="align-middle mb-4">Bejelentkezés</h1>
+        <div *ngIf="loginErrorMessage" class="alert alert-danger mt-3" [@fadeInOut] >
+            {{ loginErrorMessage }}
+        </div>
+        <form  [formGroup]="loginForm" (ngSubmit)="login()">
+
+            <mat-form-field appearance="outline" class="row mt-4">
+                <mat-label>Email:</mat-label>
                 <input matInput type="text" formControlName="email" required="required" />
                 <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
-                    Email megadása kötelező
+                Email megadása kötelező
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field class="row">
-                <mat-label for="password">Password: </mat-label>
+            <mat-form-field appearance="outline" class="row mt-4">
+                <mat-label>Jelszó:</mat-label>
                 <input matInput type="password" formControlName="password" required="required" />
                 <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
-                    Jelszó megadása kötelező
+                Jelszó megadása kötelező
                 </mat-error>
             </mat-form-field>
-            <span>
-                <span><button mat-raised-button class="costum-button" type="submit">Login</button></span>
-                <span><a mat-raised-button class="costum-button" [routerLink]="'/registration'">Regisztráció</a></span>
-            </span>
+
+            <div class="button-container mt-4">
+                <button mat-raised-button class="custom-button" type="submit">Bejelentkezés</button>
+                <button mat-raised-button class="custom-button" [routerLink]="'/registration'">Regisztráció</button>
+            </div>
 
         </form>
+
+    </div>
     </div>
 </div>

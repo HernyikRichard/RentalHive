@@ -49,7 +49,6 @@ export class AuthService {
       await this.updateUserData(credential.user);
       await this.router.navigate(['/']);
     } catch (error) {
-      console.log(error);
       throw new Error('Hiba történt a regisztráció során');
     }
   }
@@ -59,7 +58,7 @@ export class AuthService {
       await this.afAuth.signInWithEmailAndPassword(email, password);
       await this.router.navigate(['/home']);
     } catch (error) {
-      console.error('Error during login:', error);
+      throw new Error('Hiba történt a Bejelentkezés során');
     }
   }
 
