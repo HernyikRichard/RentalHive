@@ -18,7 +18,7 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private router: Router, // Inject Router
+    private router: Router
   ) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
@@ -29,6 +29,17 @@ export class AuthService {
         }
       })
     );
+  }
+
+  public getCurrentUser(): Promise<firebase.User | null> {
+    return this.afAuth.currentUser;
+  }
+
+  async changePassword(newPassword: string): Promise<void> {
+    const user = await this.afAuth.currentUser;
+    if (user) {
+      await user.updatePassword(newPassword);
+    }
   }
 
   async googleSignIn(): Promise<void> {
@@ -62,7 +73,7 @@ export class AuthService {
     }
   }
 
-  private updateUserData(user: firebase.User | null): Promise<void> {
+  public updateUserData(user: firebase.User | null, isLandlord?:boolean): Promise<void> {
     if (user) {
       const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
@@ -71,7 +82,7 @@ export class AuthService {
         email: user.email,
         displayName: user.displayName ?? null,
         photoURL: user.photoURL ?? null,
-        role: 'user',
+        role: isLandlord ? 'landlord' : 'tenant'
       };
 
       return userRef.set(data, { merge: true });
@@ -79,4 +90,6 @@ export class AuthService {
       return Promise.resolve();
     }
   }
+  
+
 }

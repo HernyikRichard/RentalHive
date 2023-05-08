@@ -1,9 +1,23 @@
-
-<div class="page">
-    <div class="d-flex page__header p-3 mt-2">Profil</div>
-    <div class="page__content shadow p-3 position-relative">
-      <div class="page__content-data position-absolute text-center">
-          
-      </div>
+<div class="container-fluid">
+  <div class="row justify-content-center align-items-center mt-4">
+    <div class="col-lg-6">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Profil</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="d-flex flex-column align-items-center">
+            <img class="rounded-circle mb-3" *ngIf="user?.photoURL" [src]="user!.photoURL" alt="Profile picture" width="150" height="150">
+            <div class="mb-3">
+              <button class="btn btn-primary" routerLink="edit">Szerkesztés</button>
+            </div>
+            <div>
+              <p><strong>Név:</strong> {{ user?.displayName }}</p>
+              <p><strong>Email:</strong> {{ user?.email }}</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
+</div>

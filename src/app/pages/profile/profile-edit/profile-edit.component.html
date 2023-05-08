@@ -1,0 +1,55 @@
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center mt-4">
+      <div class="col-lg-6">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Profil szerkesztése</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="d-flex flex-column align-items-center">
+              <form [formGroup]="profileForm" *ngIf="user" (ngSubmit)="onSubmit()">
+
+                <div class="toggle-container">
+                  <mat-button-toggle-group name="role" formControlName="role" aria-label="Role">
+                    <mat-button-toggle value="tenant">Bérlő</mat-button-toggle>
+                    <mat-button-toggle value="landlord">Kiadó</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+
+                <mat-form-field appearance="fill" class="w-100">
+                  <mat-label>Név</mat-label>
+                  <input matInput type="text" placeholder="Név" formControlName="displayName">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="w-100">
+                  <mat-label>Jelszó módosítása</mat-label>
+                  <input matInput type="password" placeholder="Új jelszó" formControlName="newPassword">
+                </mat-form-field>
+                
+                <mat-form-field appearance="fill" class="w-100">
+                  <mat-label>Jelszó megerősítése</mat-label>
+                  <input matInput type="password" placeholder="Új jelszó megerősítése" formControlName="confirmPassword">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="w-100">
+                  <mat-label>Email</mat-label>
+                  <input matInput type="email" placeholder="Email" formControlName="email" [readonly]="true">
+                </mat-form-field>
+
+                <div class="image-upload" (click)="fileInput.click()">
+                  <input type="file" id="fileInput" #fileInput (change)="uploadImage($event)" style="display: none;">
+                  <span *ngIf="!isLoading">Profilkép feltöltéséhez kattints ide</span>
+                  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+                </div>
+
+                <div class="d-flex justify-content-end mt-3">
+                  <button type="submit" class="btn btn-primary mr-2">Mentés</button>
+                  <button type="button" class="btn btn-secondary" routerLink="/profile">Mégse</button>
+                </div>
+              </form>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
