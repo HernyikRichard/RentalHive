@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
       take(1),
       filter((user): user is User => user !== null && user !== undefined),
       map((user: User) => {
-        if (user.role === 'admin' || user.role === 'user') {
+        if (user.role === 'admin' || user.role === 'user' || user.role === 'landlord' || user.role === 'tenant') {
           return true;
         } else {
           this.router.navigate(['login']);
