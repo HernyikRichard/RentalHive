@@ -1,33 +1,33 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Router } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
 import { User } from '../../../shared/interfaces/User';
 
 @Component({
-  selector: 'app-profile-edit',
-  templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.scss'],
+  selector: 'app-user-edit',
+  templateUrl: './user-edit.component.html',
+  styleUrls: ['./user-edit.component.scss']
 })
-export class ProfileEditComponent implements OnInit {
+export class UserEditComponent implements OnInit {
   user?: User;
-  profileForm: FormGroup;
+  userEditForm: FormGroup;
   isLoading = false;
 
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
     private storage: AngularFireStorage,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
-    this.profileForm = this.fb.group({
+    this.userEditForm = this.fb.group({
       displayName: ['', Validators.required],
-      email: [{ value: '', disabled: true }, Validators.required],
-      photoURL: [''],
+      email: ['', [Validators.required, Validators.email]],
       newPassword: ['', Validators.minLength(6)],
       confirmPassword: ['', Validators.minLength(6)],
-      role: ['tenant'],
+      photoURL: [''],
     }, {
       validator: this.checkPasswords
     });
@@ -44,46 +44,29 @@ export class ProfileEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.user$.subscribe((user) => {
-      if (user) {
-        this.user = user;
-        this.profileForm.patchValue({
-          displayName: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-          role: 'user'
-        });
-      }
-    });
+    const userId = this.route.snapshot.paramMap.get('id');
+    if (userId) {
+      this.authService.getUserById(userId).subscribe((user) => {
+        if (user) {
+          this.user = user;
+          this.userEditForm.patchValue({
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+          });
+        }
+      });
+    }
   }
 
   async onSubmit(): Promise<void> {
-
-    const updatedUser = await this.authService.getCurrentUser();
-
-    if (updatedUser) {
-
-      updatedUser.updateProfile({
-        displayName: this.profileForm.get('displayName')?.value,
-        photoURL: this.profileForm.get('photoURL')?.value,
-      }).then(() => {
-        const role = this.profileForm.get('role')?.value;
-
-        this.authService.updateUserData(updatedUser, role).then(() => {
-          this.router.navigate(['/profile']);
-        });
-      })
-
-      const newPassword = this.profileForm.get('newPassword')?.value;
-
-      if (newPassword) {
-        try {
-          await this.authService.changePassword(newPassword);
-        } catch (error) {
-          console.error(error);
-        }
+    if (this.userEditForm.valid) {
+      try {
+        await this.authService.updateUser(this.user!.uid!, this.userEditForm.value);
+        this.router.navigate(['/admin']);
+      } catch (error) {
+        console.error(error);
       }
-
     }
   }
 
@@ -100,7 +83,7 @@ export class ProfileEditComponent implements OnInit {
         try {
           await task;
           const url = await fileRef.getDownloadURL().toPromise();
-          this.profileForm.patchValue({ photoURL: url });
+          this.userEditForm.patchValue({ photoURL: url });
         } catch (error) {
           console.error(error);
         } finally {

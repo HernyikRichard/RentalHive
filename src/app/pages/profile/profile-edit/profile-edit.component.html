@@ -10,9 +10,9 @@
               <form [formGroup]="profileForm" *ngIf="user" (ngSubmit)="onSubmit()">
 
                 <div class="toggle-container">
-                  <mat-button-toggle-group name="role" formControlName="role" aria-label="Role">
-                    <mat-button-toggle value="tenant">Bérlő</mat-button-toggle>
-                    <mat-button-toggle value="landlord">Kiadó</mat-button-toggle>
+                  <mat-button-toggle-group name="role" formControlName="role" class="col-md-12" aria-label="Role">
+                    <mat-button-toggle class="col-md-6" value="tenant">Bérlő</mat-button-toggle>
+                    <mat-button-toggle class="col-md-6" value="landlord">Kiadó</mat-button-toggle>
                   </mat-button-toggle-group>
                 </div>
 

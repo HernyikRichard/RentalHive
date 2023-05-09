@@ -11,7 +11,11 @@
   <a mat-list-item routerLinkActive="active current-page" routerLink="/profile">
     <mat-icon>account_circle</mat-icon> <span class="costum-list-item">Profil</span>
   </a>
-  <a mat-list-item (click)="this.fAuth.signOut()">
+  <a mat-list-item routerLinkActive="active current-page" *ngIf="user?.role === 'admin'" routerLink="/admin">
+    <mat-icon>account_circle</mat-icon> <span class="costum-list-item">Összes profil</span>
+  </a>
+  
+  <a mat-list-item (click)="this.authService.signOut()">
     <mat-icon>logout</mat-icon> <span class="costum-list-item">Kijelentkezés</span>
   </a>
 </mat-nav-list>

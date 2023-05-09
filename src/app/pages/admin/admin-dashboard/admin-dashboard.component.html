@@ -1,0 +1,39 @@
+<div class="page">
+  <div class="page_header">Felhasznalói Lista</div>
+
+  <div class="user-list">
+    <mat-table [dataSource]="users" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="displayName">
+        <mat-header-cell *matHeaderCellDef>Név</mat-header-cell>
+        <mat-cell *matCellDef="let user">{{ user.displayName }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+        <mat-cell *matCellDef="let user">{{ user.email }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="photoURL">
+        <mat-header-cell *matHeaderCellDef>Kép</mat-header-cell>
+        <mat-cell *matCellDef="let user">
+          <img [src]="user.photoURL" alt="Profilkép" width="50" height="50">
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Műveletek</mat-header-cell>
+        <mat-cell *matCellDef="let user">
+          <button mat-raised-button color="primary" [routerLink]="['/admin/edit', user.uid]">
+            Szerkesztés
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" class="p-2"></mat-row>
+
+    </mat-table>
+  </div>
+
+</div>

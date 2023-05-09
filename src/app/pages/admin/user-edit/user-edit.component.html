@@ -1,0 +1,46 @@
+<div class="container">
+  <h2>Felhasználó szerkesztése</h2>
+  <form [formGroup]="userEditForm" (ngSubmit)="onSubmit()" class="user-edit-form">
+
+    <div class="toggle-container">
+      <mat-button-toggle-group name="role" class="col-md-12" formControlName="role" aria-label="Role">
+        <mat-button-toggle class="col-md-6" value="tenant">Bérlő</mat-button-toggle>
+        <mat-button-toggle class="col-md-6" value="landlord">Kiadó</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Név</mat-label>
+      <input matInput formControlName="displayName" />
+      <mat-error *ngIf="userEditForm.get('displayName')?.invalid && userEditForm.get('displayName')?.touched">
+        A név megadása kötelező.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error *ngIf="userEditForm.get('email')?.invalid && userEditForm.get('email')?.touched">
+        Érvényes email címet adj meg.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Jelszó</mat-label>
+      <input matInput formControlName="password" type="password" />
+      <mat-error *ngIf="userEditForm.get('password')?.invalid && userEditForm.get('password')?.touched">
+        A jelszónak legalább 6 karakter hosszúnak kell lennie.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="image-upload" (click)="fileInput.click()">
+      <input type="file" id="fileInput" #fileInput (change)="uploadImage($event)" style="display: none;">
+      <span *ngIf="!isLoading">Profilkép feltöltéséhez kattints ide</span>
+      <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="userEditForm.invalid">Mentés</button>
+  </form>
+</div>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './shared/services/auth.guard';
 import { LoginGuard } from './shared/services/login.guard';
+import { AdminAuthGuard } from './shared/services/admin.guard';
 
 const routes: Routes = [
   {
@@ -23,6 +24,11 @@ const routes: Routes = [
     path: 'registration',
     loadChildren: () => import('./pages/regist/regist.module').then(m => m.RegistModule),
     canActivate: [LoginGuard],
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),
+    canActivate: [AdminAuthGuard]
   },
   {
     path: 'not-found', 

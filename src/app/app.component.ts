@@ -19,7 +19,7 @@ import { AnimationEvent } from '@angular/animations';
 
 export class AppComponent{
 
-  public sideBarOpen: boolean = true;
+  public sideBarOpen: boolean = false;
   public isNotFoundPage: boolean = false;
   public isLoading: boolean = false;
   public loadingState: string = 'invisible';

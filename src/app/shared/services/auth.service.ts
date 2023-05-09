@@ -6,6 +6,7 @@ import { switchMap, map } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { User } from '../interfaces/User';
 import { Router } from '@angular/router';
+import { OptionalUser } from '../interfaces/OptionalUser';
 
 @Injectable({
   providedIn: 'root',
@@ -73,23 +74,34 @@ export class AuthService {
     }
   }
 
-  public updateUserData(user: firebase.User | null, isLandlord?:boolean): Promise<void> {
+  getUserById(userId: string): Observable<User | undefined> {
+    return this.afs.doc<User>(`users/${userId}`).valueChanges();
+  }
+
+  async updateUser(uid: string, updates: Partial<User>): Promise<void> {
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${uid}`);
+    await userRef.update(updates);
+  }
+
+  public updateUserData(user: firebase.User | null, customData?: OptionalUser): Promise<void> {
     if (user) {
       const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-
-      const data = {
+  
+      const data: OptionalUser = {
         uid: user.uid,
         email: user.email,
-        displayName: user.displayName ?? null,
-        photoURL: user.photoURL ?? null,
-        role: isLandlord ? 'landlord' : 'tenant'
+        displayName: user.displayName,
+        photoURL: user.photoURL,
       };
-
-      return userRef.set(data, { merge: true });
+  
+      if (customData) {
+        Object.assign(data, customData);
+      }
+  
+      return userRef.set(data as User, { merge: true });
     } else {
       return Promise.resolve();
     }
   }
-  
 
 }
