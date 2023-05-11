@@ -1,1 +1,55 @@
-<p>edit works!</p>
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center mt-8">
+      <div class="col-lg-6">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Hirdetés szerkesztése</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="d-flex flex-column align-items-center">
+              <form [formGroup]="subletForm" *ngIf="sublet$ | async as sublet" (ngSubmit)="save()">
+  
+                <mat-form-field appearance="fill" class="w-100">
+                  <mat-label>Cím</mat-label>
+                  <input matInput type="text" placeholder="Cím" formControlName="title" required>
+                </mat-form-field>
+  
+                <mat-form-field appearance="fill" class="w-100">
+                  <mat-label>Cím</mat-label>
+                  <input matInput type="text" placeholder="Cím" formControlName="address" required>
+                </mat-form-field>
+  
+                <mat-form-field appearance="fill" class="w-100">
+                  <mat-label>Leírás</mat-label>
+                  <textarea matInput placeholder="Leírás" formControlName="description" required></textarea>
+                </mat-form-field>
+  
+                <div formGroupName="parameters">
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Típus</mat-label>
+                      <input matInput type="text" formControlName="type">
+                    </mat-form-field>
+  
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Méret</mat-label>
+                      <input matInput type="number" placeholder="Méret" formControlName="size" required>
+                    </mat-form-field>
+  
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Fűtési típus</mat-label>
+                      <input matInput type="text" placeholder="Fűtési típus" formControlName="heatingType" required>
+                    </mat-form-field>
+                  </div>
+  
+                <div class="d-flex justify-content-end mt-3">
+                  <button type="submit" class="btn btn-primary mr-2">Mentés</button>
+                  <button type="button" class="btn btn-secondary" routerLink="/sublet/view/{{ subletId }}">Mégse</button>
+                </div>
+              </form>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  

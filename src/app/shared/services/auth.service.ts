@@ -55,11 +55,11 @@ export class AuthService {
     await this.router.navigate(['/login']);
   }
 
-  async register(email: string, password: string): Promise<void> {
+  async register(email: string, password: string, displayName: string, photoURL: string, role: string): Promise<void> {
     try {
       const credential = await this.afAuth.createUserWithEmailAndPassword(email, password);
-      await this.updateUserData(credential.user);
-      await this.router.navigate(['/']);
+      await this.updateUserData(credential.user, { displayName, photoURL, role });
+      await this.router.navigate(['/home']);
     } catch (error) {
       throw new Error('Hiba történt a regisztráció során');
     }

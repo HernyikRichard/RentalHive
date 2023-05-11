@@ -39,9 +39,18 @@ export class RegistComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.register(
-      this.registrationForm.get('email')?.value, 
-      this.registrationForm.get('password')?.value
-    );
+    const email = this.registrationForm.value.email;
+    const password = this.registrationForm.value.password;
+    const displayName = this.registrationForm.value.firstName+' '+this.registrationForm.value.lastName; 
+    const photoURL = "https://firebasestorage.googleapis.com/v0/b/rentalhive-szakdolgozat-2023.appspot.com/o/profile-pictures%2F2zdiES73lOaCvLHbvdN8yuR3bjr1%2Fimage.png?alt=media&token=21e61d13-5e6e-4591-b05b-6b97c4d7a941";  
+    const role = "user";  
+  
+    this.authService.register(email, password, displayName, photoURL, role)
+      .then(() => {
+        console.log('ok');
+      })
+      .catch(error => {
+        console.error("Hiba történt a regisztráció során", error);
+      });
   }
 }
