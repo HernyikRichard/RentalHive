@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { Router, NavigationEnd, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { AuthService } from './shared/services/auth.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AnimationEvent } from '@angular/animations';

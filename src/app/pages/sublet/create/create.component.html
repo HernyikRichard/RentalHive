@@ -1,0 +1,47 @@
+<div class="container" fxLayout="column" fxLayoutAlign="center center">
+  <mat-card class="card">
+    <form [formGroup]="subletForm" (ngSubmit)="onSubmit()">
+      <mat-card-header>
+        <mat-card-title>Create Sublet</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="address">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+        <div formGroupName="parameters">
+          <mat-form-field appearance="fill">
+            <mat-label>Type</mat-label>
+            <input matInput formControlName="type">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Size</mat-label>
+            <input matInput formControlName="size">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Heating Type</mat-label>
+            <input matInput formControlName="heatingType">
+          </mat-form-field>
+        </div>
+
+        <div class="image-upload" (click)="fileInput.click()">
+          <input type="file" id="fileInput" #fileInput (change)="uploadImage($event)" style="display: none;">
+          <span *ngIf="!isLoading">Képek feltöltéséhez kattints ide</span>
+          <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+        </div>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Létrehozás</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

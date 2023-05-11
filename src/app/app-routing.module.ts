@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './shared/services/auth.guard';
-import { LoginGuard } from './shared/services/login.guard';
-import { AdminAuthGuard } from './shared/services/admin.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { LoginGuard } from './shared/guards/login.guard';
+import { AdminAuthGuard } from './shared/guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -33,6 +33,10 @@ const routes: Routes = [
   {
     path: 'not-found', 
     loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule),
+  },
+  {
+    path: 'sublet',
+    loadChildren: () => import('./pages/sublet/sublet.module').then(m => m.SubletModule),
   },
   {
     path: '', 

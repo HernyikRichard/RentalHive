@@ -21,7 +21,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { MatDividerModule } from '@angular/material/divider';
-import { AuthGuard } from '../app/shared/services/auth.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';

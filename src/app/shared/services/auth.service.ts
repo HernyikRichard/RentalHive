@@ -83,6 +83,16 @@ export class AuthService {
     await userRef.update(updates);
   }
 
+  public async getUser(): Promise<User | null | undefined> {
+    const user = await this.afAuth.currentUser;
+    if (user) {
+      const userData = await this.afs.doc<User>(`users/${user.uid}`).get().toPromise();
+      return userData!.data() as User;
+    } else {
+      return null;
+    }
+  }
+
   public updateUserData(user: firebase.User | null, customData?: OptionalUser): Promise<void> {
     if (user) {
       const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);

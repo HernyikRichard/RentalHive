@@ -1,0 +1,31 @@
+<div class="container" *ngIf="sublet$ | async as sublet">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>{{ sublet.title }}</mat-card-title>
+        <mat-card-subtitle>{{ sublet.address }}</mat-card-subtitle>
+      </mat-card-header>
+  
+      <ng-container *ngIf="sublet.images && sublet.images.length; else noImage">
+        <div class="image-container">
+          <img [src]="sublet.images[currentImageIndex]" alt="Sublet image">
+          <button mat-button (click)="prevImage()">előző</button>
+          <button mat-button (click)="nextImage()">következő</button>
+        </div>
+      </ng-container>
+  
+      <ng-template #noImage>
+        <img mat-card-image src="default-image-path" alt="Sublet image">
+      </ng-template>
+  
+      <mat-card-content>
+        <p>
+          {{ sublet.description }}
+        </p>
+        <p>
+          Type: {{ sublet.parameters.type }} <br>
+          Size: {{ sublet.parameters.size }} <br>
+          Heating Type: {{ sublet.parameters.heatingType }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
