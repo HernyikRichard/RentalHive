@@ -58,23 +58,22 @@ export class ProfileEditComponent implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
-
     const updatedUser = await this.authService.getCurrentUser();
 
     if (updatedUser) {
-
+  
       updatedUser.updateProfile({
         displayName: this.profileForm.get('displayName')?.value,
         photoURL: this.profileForm.get('photoURL')?.value,
       }).then(() => {
         const role = this.profileForm.get('role')?.value;
-        this.authService.updateUserData(updatedUser, role).then(() => {
+        this.authService.updateUserData(updatedUser, { role }).then(() => {
           this.router.navigate(['/profile']);
         });
       })
-
+  
       const newPassword = this.profileForm.get('newPassword')?.value;
-
+  
       if (newPassword) {
         try {
           await this.authService.changePassword(newPassword);
@@ -82,8 +81,8 @@ export class ProfileEditComponent implements OnInit {
           console.error(error);
         }
       }
-
     }
+
   }
 
   async uploadImage(event: any): Promise<void> {

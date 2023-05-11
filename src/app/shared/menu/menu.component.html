@@ -14,8 +14,8 @@
   <a mat-list-item routerLinkActive="active current-page" *ngIf="user?.role === 'admin'" routerLink="/admin">
     <mat-icon>account_circle</mat-icon> <span class="costum-list-item">Összes profil</span>
   </a>
-  <a mat-list-item routerLinkActive="active current-page" *ngIf="user?.role === 'admin'" routerLink="sublet/create">
-    <mat-icon>account_circle</mat-icon> <span class="costum-list-item">Albérlet létrehozása</span>
+  <a mat-list-item routerLinkActive="active current-page" *ngIf="user?.role === 'admin' || user?.role === 'landlord'" routerLink="sublet/create">
+    <mat-icon>account_circle</mat-icon> <span class="costum-list-item">Hirdetés<br>létrehozása</span>
   </a>
   
   <a mat-list-item (click)="this.authService.signOut()">

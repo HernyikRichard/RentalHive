@@ -1,36 +1,38 @@
-<div class="container" *ngIf="sublet$ | async as sublet">
-  <mat-card class="card">
-    <div class="image-section" *ngIf="sublet.images && sublet.images.length; else noImage">
-      <button mat-icon-button class="prev-button" (click)="prevImage()">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-      <img [src]="sublet.images[currentImageIndex]" class="sublet-image" alt="Sublet image">
-      <button mat-icon-button class="next-button" (click)="nextImage()">
-        <mat-icon>arrow_forward</mat-icon>
-      </button>
+<div class="container-fluid">
+  <div class="row justify-content-center align-items-center mt-8">
+    <div class="col-lg-8">
+      <mat-card *ngIf="sublet$ | async as sublet">
+        <mat-card-header>
+          <mat-card-title>{{ sublet.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="d-flex flex-column align-items-center">
+            <div class="image-container">
+              <button mat-icon-button class="nav-button prev-button" (click)="prevImage()">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+              </button>
+              <img [src]="sublet.images[currentImageIndex]" class="sublet-image" alt="Sublet image">
+              <button mat-icon-button class="nav-button next-button" (click)="nextImage()">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+              </button>
+            </div>
+
+            <h5 class="mt-3">Cím: {{ sublet.address }}</h5>
+
+            <div class="mt-3">
+              <h5>Paraméterek:</h5>
+              <p>Típus: {{ sublet.parameters.type }}</p>
+              <p>Méret: {{ sublet.parameters.size }}</p>
+              <p>Fűtési típus: {{ sublet.parameters.heatingType }}</p>
+            </div>
+
+            <div class="mt-3">
+              <h5>Leírás:</h5>
+              <p>{{ sublet.description }}</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
-
-    <ng-template #noImage>
-      <img mat-card-image src="default-image-path" class="sublet-image" alt="Sublet image">
-    </ng-template>
-
-    <mat-card-header>
-      <mat-card-title>{{ sublet.title }}</mat-card-title>
-      <mat-card-subtitle>{{ sublet.address }}</mat-card-subtitle>
-    </mat-card-header>
-
-    <mat-card-content>
-      <p>
-        {{ sublet.description }}
-      </p>
-      <p>
-        Type: {{ sublet.parameters.type }} <br>
-        Size: {{ sublet.parameters.size }} <br>
-        Heating Type: {{ sublet.parameters.heatingType }}
-      </p>
-    </mat-card-content>
-
-    <mat-card-actions align="end">
-      <button mat-button *ngIf="user && (user.role == 'Admin' || sublet.userId == user.uid)" (click)="editSublet(sublet.id!)">Szerkesztés</button></mat-card-actions>
-  </mat-card>
+  </div>
 </div>

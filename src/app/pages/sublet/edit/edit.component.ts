@@ -72,4 +72,10 @@ export class EditComponent implements OnInit {
     }
   }
 
+  delete() {
+    this.subletService.deleteSublet(this.subletId).then(() => {
+      this.router.navigate(['/home']);
+    });
+  }
+
 }
