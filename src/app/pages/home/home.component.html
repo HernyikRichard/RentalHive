@@ -1,9 +1,56 @@
-
-<div class="page">
-    <div class="d-flex page__header p-3 mt-2">Home</div>
-    <div class="page__content shadow p-3 position-relative">
-      <div class="page__content-data position-absolute text-center">
-          
-      </div>
-    </div>
+<div class="container">
+  <div class="row">
+      <input type="text" [(ngModel)]="searchQuery" placeholder="Keresés" (input)="filterSublets()" class="col-10">
+      <button (click)="clearSearch()" class="col-2">Törlés</button>
   </div>
+
+
+  <div class="row">
+    <ng-container *ngIf="(searchQuery === '' || !filteredSublets$) else filteredSublets">
+      <ng-container *ngFor="let sublet of sublets$ | async">
+        <div class="col-12 col-sm-6 col-md-3 p-2">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>{{sublet.title}}</mat-card-title>
+              <mat-card-subtitle>{{sublet.address}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="{{sublet.images[0]}}">
+            <mat-card-content>
+              <p>
+                {{(sublet.description | slice:0:100) + (sublet.description.length > 100 ? '...' : '')}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions class="card-actions">
+              <button mat-raised-button color="primary" class="action-button" *ngIf="user && (user.role == 'Admin' || sublet.userId == user.uid)" [routerLink]="['/sublet/edit/', sublet.id]" >Szerkesztés</button>
+              <button mat-raised-button color="accent" class="action-button" [routerLink]="['/sublet/view/', sublet.id]" >Megtekintés</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-template #filteredSublets>
+      <ng-container *ngFor="let sublet of filteredSublets$ | async">
+        <div class="col-12 col-sm-6 col-md-3 p-2">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>{{sublet.title}}</mat-card-title>
+              <mat-card-subtitle>{{sublet.address}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="{{sublet.images[0]}}">
+            <mat-card-content>
+              <p>
+                {{(sublet.description | slice:0:100) + (sublet.description.length > 100 ? '...' : '')}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions class="card-actions">
+              <button mat-raised-button color="primary" class="action-button" *ngIf="user && (user.role == 'Admin' || sublet.userId == user.uid)" [routerLink]="['/sublet/edit/', sublet.id]" >Szerkesztés</button>
+              <button mat-raised-button color="accent" class="action-button" [routerLink]="['/sublet/view/', sublet.id]" >Megtekintés</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </ng-container>
+    </ng-template>
+  </div>
+</div>

@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable, catchError, map, of, throwError } from 'rxjs';
-import { NewSublet, Sublet } from '../interfaces/Sublet';
+import { Sublet } from '../interfaces/Sublet';
 import { AuthService } from './auth.service';
-import type { DocumentReference } from '@firebase/firestore-types';
-
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +29,9 @@ export class SubletService {
     return this.sublets$;
   }
 
-  addSublet(sublet: Sublet): Promise<DocumentReference<unknown>> {
-    return this.subletCollection.add(sublet);
+  async addSublet(sublet: Sublet): Promise<void> {
+    const docRef = await this.subletCollection.add(sublet);
+    await docRef.update({id: docRef.id});
   }
 
   updateSublet(subletId: string, updates: Partial<Sublet>): Promise<void> {
@@ -63,4 +62,6 @@ export class SubletService {
       await this.addSublet(sublet);
     }
   }
+
+
 }

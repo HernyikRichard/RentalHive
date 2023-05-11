@@ -1,24 +1,26 @@
-.page {
-    color: white;
-    padding: 0 1rem;
-    &__header {
-      display: flex;
-      align-items: center;
-      min-height: 20px;
-      font-size: 30px;
-      margin-bottom: 1rem;
-    }
-    &__content {
-      min-height: calc(100vh - 178px);
-      border-radius: 10px;
-      margin-top: -2rem;
-      background: white;
-      color: black;
-      font-size: 2rem;
-      &-data {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-    }
-  }
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.action-button {
+  width: 48%;
+}
+nput.full-width {
+  border: none;
+  background-color: transparent;
+  box-shadow: none; 
+  padding: 0.5rem; 
+  color: #fff; 
+  font-size: 1.2rem; 
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+input.full-width::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+input.full-width:focus {
+  background-color: rgba(255, 255, 255, 0.1); 
+}

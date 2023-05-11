@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatStepperModule} from '@angular/material/stepper';
 import { ViewComponent } from './view/view.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ViewComponent } from './view/view.component';
     MatInputModule,
     MatSelectModule,
     MatProgressBarModule,
-    MatStepperModule
+    MatStepperModule,
+    MatIconModule,
   ]
 })
 

@@ -30,8 +30,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public aServ: AuthService,
-    private formBuilder: FormBuilder,
-    private router: Router
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +55,14 @@ export class LoginComponent implements OnInit {
       );
     } catch (error) {
       this.loginErrorMessage = "Hiba történt a bejelentkezés során. Kérjük, ellenőrizze az e-mail címét és jelszavát.";
+    }
+  }
+
+  async googleLogin() {
+    try {
+      await this.aServ.googleSignIn();
+    } catch (error) {
+      console.log(error);
     }
   }
 }

@@ -1,6 +1,5 @@
-import { FormControl } from "@angular/forms";
-
-export interface NewSublet {
+export interface Sublet {
+  id?: string;
   title: string;
   userId?: string;
   address: string;
@@ -13,6 +12,3 @@ export interface NewSublet {
   images: string[];
 }
 
-export interface Sublet extends NewSublet {
-  id?: string;
-}

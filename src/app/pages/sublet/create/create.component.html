@@ -2,32 +2,32 @@
   <mat-card class="card">
     <form [formGroup]="subletForm" (ngSubmit)="onSubmit()">
       <mat-card-header>
-        <mat-card-title>Create Sublet</mat-card-title>
+        <mat-card-title>Albérlet hírdetés létrehozása</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <mat-form-field appearance="fill">
-          <mat-label>Title</mat-label>
+          <mat-label>Rövid leírás</mat-label>
           <input matInput formControlName="title">
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Address</mat-label>
+          <mat-label>Cím</mat-label>
           <input matInput formControlName="address">
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Description</mat-label>
+          <mat-label>Teljes leírás</mat-label>
           <textarea matInput formControlName="description"></textarea>
         </mat-form-field>
         <div formGroupName="parameters">
           <mat-form-field appearance="fill">
-            <mat-label>Type</mat-label>
+            <mat-label>Igngatlan típusa</mat-label>
             <input matInput formControlName="type">
           </mat-form-field>
           <mat-form-field appearance="fill">
-            <mat-label>Size</mat-label>
+            <mat-label>Alapterület</mat-label>
             <input matInput formControlName="size">
           </mat-form-field>
           <mat-form-field appearance="fill">
-            <mat-label>Heating Type</mat-label>
+            <mat-label>Fütés típus</mat-label>
             <input matInput formControlName="heatingType">
           </mat-form-field>
         </div>

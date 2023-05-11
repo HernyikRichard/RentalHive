@@ -68,7 +68,6 @@ export class ProfileEditComponent implements OnInit {
         photoURL: this.profileForm.get('photoURL')?.value,
       }).then(() => {
         const role = this.profileForm.get('role')?.value;
-
         this.authService.updateUserData(updatedUser, role).then(() => {
           this.router.navigate(['/profile']);
         });

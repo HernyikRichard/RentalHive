@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormArray, FormControl  } from '@angular/forms';
-import { NewSublet } from 'src/app/shared/interfaces/Sublet';
+import { Sublet } from 'src/app/shared/interfaces/Sublet';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { User } from 'src/app/shared/interfaces/User';
 import { SubletService } from 'src/app/shared/services/sublet.service';
@@ -47,7 +47,7 @@ export class CreateComponent implements OnInit {
   onSubmit() {
     if (this.subletForm.valid) {
       const formValue = this.subletForm.getRawValue();
-      const newSublet: NewSublet = {
+      const newSublet: Sublet = {
         title: formValue.title || '',
         address: formValue.address || '',
         description: formValue.description || '',
@@ -60,14 +60,11 @@ export class CreateComponent implements OnInit {
       };
       this.subletService.addSubletWithUserId(newSublet)
         .then(() => {
-          console.log('Sublet added successfully');
           this.subletForm.reset();
         })
         .catch((error) => {
-          console.error('Error adding sublet: ', error);
+          console.error('Hiba: ', error);
         });
-    } else {
-      console.log('Form is not valid');
     }
   }
 
