@@ -57,7 +57,7 @@ export class ProfileEditComponent implements OnInit {
     });
   }
 
-  async onSubmit(): Promise<void> {
+  async saveEdit(): Promise<void> {
     const updatedUser = await this.authService.getCurrentUser();
 
     if (updatedUser) {
