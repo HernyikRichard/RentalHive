@@ -94,6 +94,7 @@ export class AuthService {
   }
 
   public updateUserData(user: firebase.User | null, customData?: OptionalUser): Promise<void> {
+    
     if (user) {
       const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
   
