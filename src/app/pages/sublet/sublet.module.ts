@@ -7,10 +7,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatStepperModule} from '@angular/material/stepper';
 import { ViewComponent } from './view/view.component';
 import { MatIconModule } from '@angular/material/icon';
 
