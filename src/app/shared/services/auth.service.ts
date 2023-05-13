@@ -45,9 +45,17 @@ export class AuthService {
 
   async googleSignIn(): Promise<void> {
     const provider = new firebase.auth.GoogleAuthProvider();
+    const role  = 'user';
+    try{
+
     const credential = await this.afAuth.signInWithPopup(provider);
-    await this.updateUserData(credential.user);
+    await this.updateUserData(credential.user, {  role } );
     await this.router.navigate(['/home']);
+
+  }catch (error) {
+    throw new Error('Hiba történt a bejelentkezés során');
+  }
+
   }
 
   async signOut(): Promise<void> {
