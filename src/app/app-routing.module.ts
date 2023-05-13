@@ -37,7 +37,7 @@ const routes: Routes = [
   {
     path: 'sublet',
     loadChildren: () => import('./pages/sublet/sublet.module').then(m => m.SubletModule),
-    
+    canActivate: [AuthGuard],
   },
   {
     path: '', 

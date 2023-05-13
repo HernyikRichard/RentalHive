@@ -3,13 +3,11 @@
       <input type="text" [(ngModel)]="searchQuery" placeholder="Keresés" (input)="filterSublets()" class="col-10">
       <button (click)="clearSearch()" class="col-2">Törlés</button>
   </div>
-
-
   <div class="row">
     <ng-container *ngIf="(searchQuery === '' || !filteredSublets$) else filteredSublets">
       <ng-container *ngFor="let sublet of sublets$ | async">
-        <div class="col-12 col-sm-6 col-md-3 p-2">
-          <mat-card class="example-card">
+        <div class="col-12 col-sm-6 col-md-3 p-2 ">
+          <mat-card class="example-card shadow p-3 mb-5 bg-white rounded">
             <mat-card-header>
               <div mat-card-avatar class="example-header-image"></div>
               <mat-card-title>{{sublet.title}}</mat-card-title>
@@ -22,8 +20,8 @@
               </p>
             </mat-card-content>
             <mat-card-actions class="card-actions">
-              <button mat-raised-button color="primary" class="action-button" *ngIf="user && (user.role == 'Admin' || sublet.userId == user.uid)" [routerLink]="['/sublet/edit/', sublet.id]" >Szerkesztés</button>
-              <button mat-raised-button color="accent" class="action-button" [routerLink]="['/sublet/view/', sublet.id]" >Megtekintés</button>
+              <button mat-raised-button color="primary" class="action-button btn btn-outline-success" *ngIf="user && (user.role == 'admin' || sublet.userId == user.uid)" [routerLink]="['/sublet/edit/', sublet.id]" >Szerkesztés</button>
+              <button mat-raised-button color="accent" class="action-button btn btn-outline-success" [routerLink]="['/sublet/view/', sublet.id]" >Megtekintés</button>
             </mat-card-actions>
           </mat-card>
         </div>
